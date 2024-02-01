@@ -34,18 +34,18 @@ const Home = () => {
   const { formData, jsonText, paramData, headerData } = useContext(DataContext);
 
   const onSendClick = async () => {
+    setError(false);
+    setErrorResponse(false);
+    setErrorMsg("");
     if (!checkParams(formData, jsonText, paramData, headerData, setErrorMsg)) {
       setError(true);
-      return false;
     }
 
     let response = await getData(formData, jsonText, paramData, headerData);
     if (response === "error") {
       setErrorResponse(true);
-      return;
     }
-    setApiResponse(response.data);
-    console.log(response.data);
+    setApiResponse(response?.data);
   };
 
   return (
