@@ -18,8 +18,8 @@ const Response = ({ data }) => {
         Response
       </Typography>
       <TextareaAutosize
-        minRows={3}
-        maxRows={5}
+        minRows={5}
+        maxRows={20}
         style={textareaStyle}
         disabled="disabled"
         value={JSON.stringify(data, null, 2)}

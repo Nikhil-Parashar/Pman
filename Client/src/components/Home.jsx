@@ -48,15 +48,38 @@ const Home = () => {
     setApiResponse(response?.data);
   };
 
+  const responseFromHistory = (data) => {
+    setApiResponse(JSON.parse(data));
+  };
+
+  // return (
+  //   <>
+  //     <Header />
+  //     <Box className={classes.component}>
+  //       <Form onSendClick={onSendClick} />
+  //       <SelectTab />
+  //       {errorResponse ? <ErrorScreen /> : <Response data={apiResponse} />}
+  //     </Box>
+  //     {/* // <PrevRequests /> */}
+  //     {error && (
+  //       <SnackBar errorMsg={errorMsg} error={error} setError={setError} />
+  //     )}
+  //   </>
+  // );
+
   return (
     <>
       <Header />
-      <Box className={classes.component}>
-        <Form onSendClick={onSendClick} />
-        <SelectTab />
-        {errorResponse ? <ErrorScreen /> : <Response data={apiResponse} />}
-      </Box>
-      <PrevRequests />
+      <div style={{ display: "flex", flexDirection: "row" }}>
+        <div className={classes.sidebar}>
+          <PrevRequests responseFromHistory={responseFromHistory} />
+        </div>
+        <Box className={classes.component}>
+          <Form onSendClick={onSendClick} />
+          <SelectTab />
+          {errorResponse ? <ErrorScreen /> : <Response data={apiResponse} />}
+        </Box>
+      </div>
       {error && (
         <SnackBar errorMsg={errorMsg} error={error} setError={setError} />
       )}

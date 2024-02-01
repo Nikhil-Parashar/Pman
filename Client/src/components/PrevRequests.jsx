@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
-import Response from "./Response";
 
-function PrevRequests() {
+function PrevRequests({ responseFromHistory }) {
   const [requests, setRequests] = useState([]);
-  const [selectedRequest, setSelectedRequest] = useState(null);
+
+  async function fetchRequests() {
+    const response = await fetch("http://localhost:5000/api/get-requests");
+    const data = await response.json();
+    setRequests(data);
+  }
 
   useEffect(() => {
-    async function fetchRequests() {
-      const response = await fetch("http://localhost:5000/api/get-requests");
-      const data = await response.json();
-      setRequests(data);
-    }
     fetchRequests();
   }, []);
 
   const handleRequestClick = (request) => {
-    setSelectedRequest(request);
-    console.log(JSON.parse(request.responseData));
+    responseFromHistory(request?.responseData);
   };
 
   const deleteAll = () => {
@@ -24,6 +22,10 @@ function PrevRequests() {
       method: "DELETE",
     });
     setRequests([]);
+  };
+
+  const refreshList = () => {
+    fetchRequests();
   };
 
   return (
@@ -49,6 +51,18 @@ function PrevRequests() {
           }}
         >
           Clear History
+        </button>
+        <button
+          onClick={refreshList}
+          style={{
+            padding: "5px 10px",
+            borderRadius: "5px",
+            backgroundColor: "skyblue",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          Refresh
         </button>
       </div>
 
@@ -89,7 +103,7 @@ function PrevRequests() {
           ))}
         </ul>
 
-        {selectedRequest && (
+        {/* {selectedRequest && (
           <div
             style={{
               paddingLeft: "10px",
@@ -99,7 +113,7 @@ function PrevRequests() {
           >
             <Response data={JSON.parse(selectedRequest.responseData)} />
           </div>
-        )}
+        )} */}
       </div>
     </>
   );
