@@ -52,21 +52,6 @@ const Home = () => {
     setApiResponse(JSON.parse(data));
   };
 
-  // return (
-  //   <>
-  //     <Header />
-  //     <Box className={classes.component}>
-  //       <Form onSendClick={onSendClick} />
-  //       <SelectTab />
-  //       {errorResponse ? <ErrorScreen /> : <Response data={apiResponse} />}
-  //     </Box>
-  //     {/* // <PrevRequests /> */}
-  //     {error && (
-  //       <SnackBar errorMsg={errorMsg} error={error} setError={setError} />
-  //     )}
-  //   </>
-  // );
-
   return (
     <>
       <Header />
